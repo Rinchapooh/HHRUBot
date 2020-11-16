@@ -2,8 +2,7 @@ import urllib.parse
 import requests
 from bs4 import BeautifulSoup
 
-
-from parsing_functions import *
+from Core.parsing_functions import *
 
 
 class HeadHunterScraper:

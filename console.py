@@ -1,6 +1,7 @@
 import argparse
-import HeadHunterScraper
-from jsons import write_json_to_disk
+import Core.jsons
+
+from Core import HeadHunterScraper
 
 arg_parser = argparse.ArgumentParser(description="Collection of vacancies from the site hh.ru.")
 
@@ -50,11 +51,10 @@ def parse(specialization_code, area_code, items_on_page, period):
                            items_on_page=items_on_page,
                            search_period=period)
 
-    write_json_to_disk(parsed,
-                       va_count=scraper.vacancies_count,
-                       va_specialization=specialization_code,
-                       va_area=area_code)
+    Core.jsons.write_json_to_disk(parsed,
+                                  va_count=scraper.vacancies_count,
+                                  va_specialization=specialization_code,
+                                  va_area=area_code)
 
 
 parse(get_code(args.specialization), get_code(args.area), args.items_on_page, args.search_period)
-
