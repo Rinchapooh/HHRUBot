@@ -2,6 +2,7 @@ import urllib.parse
 import requests
 from bs4 import BeautifulSoup
 
+from Core.jsons import write_img
 from Core.parsing_functions import *
 
 
@@ -59,8 +60,15 @@ class HeadHunterScraper:
                     "vacancy_desc": get_vacancy_desc(vacancy),
                     "vacancy_requirement": get_vacancy_requirement(vacancy),
                     "company_name": get_vacancy_company_name(vacancy),
-                    "date_of_post": get_date_of_post_vacancy(vacancy)
+                    "date_of_post": get_date_of_post_vacancy(vacancy),
+                    "employer_id": get_employer_id(vacancy)
                 }
+                try:
+                    x = vacancy.find('img', attrs={'class': "vacancy-serp-item__logo"})
+                    img_src = x['src']
+                    write_img(img_src, get_employer_logo_id(vacancy))
+                except:
+                    pass
                 self.vacancies_count += 1
                 print(self.vacancies_count)
                 json_dict[get_vacancy_id(vacancy)] = min_array

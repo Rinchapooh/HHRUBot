@@ -38,10 +38,20 @@ def get_code(common_code):
         return '160'
     elif str.lower(common_code) == 'astana':
         return '159'
+   # elif str.lower(common_code) == 'shymkent' or 'shym':
+      #  return '205'
     elif str.lower(common_code) == 'kz':
         return '40'
+    elif str.lower(common_code) == 'day' or '1day':
+        return '1'
+    elif str.lower(common_code) == 'week' or '7days':
+        return '7'
+    elif str.lower(common_code) == 'month' or 'mont':
+        return '30'
+
     else:
-        exit("[*]=====Error paring arguments===")
+        exit("[*]=====Error paring arguments==="
+             "\nExample: console.py -s sales -a almaty -p 7days")
 
 
 def parse(specialization_code, area_code, items_on_page, period):
@@ -57,4 +67,4 @@ def parse(specialization_code, area_code, items_on_page, period):
                                   va_area=area_code)
 
 
-parse(get_code(args.specialization), get_code(args.area), args.items_on_page, args.search_period)
+parse(get_code(args.specialization), get_code(args.area), args.items_on_page, get_code(args.search_period))

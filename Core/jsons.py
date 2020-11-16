@@ -1,6 +1,8 @@
 import json
 import time
 import os.path
+import requests
+
 from os.path import join
 
 
@@ -21,7 +23,6 @@ def write_json_to_disk(data, va_count, va_specialization, va_area):
 
 
 def path_exist(name_of_file):
-
     if os.path.exists(os.getcwd() + "\\Output"):
         print("Saving in: " + os.getcwd() + "\\Output" + "\\" + name_of_file)
         return os.getcwd() + "\\Output"
@@ -38,6 +39,8 @@ def decode_spec_area(common_code):
         return "almaty"
     elif common_code == "159":
         return "astana"
+    elif common_code == '205':
+        return 'shymkent'
     elif common_code == "1":
         return "it"
     elif common_code == "2":
@@ -46,3 +49,17 @@ def decode_spec_area(common_code):
         return "sales"
     else:
         return "NONE"
+
+
+def write_img(img_url, emp_id):
+    """
+
+    :param img_url: url to the employer logo image
+    :param emp_id: employer id
+    :return:
+    """
+    img = requests.get(img_url)
+    path = os.getcwd() + "\\Output\\img\\" + emp_id + '.jpeg'
+    with open(path, 'xb') as file:
+        file.write(img.content)
+        file.close()

@@ -4,7 +4,7 @@ headers = {
                   'Chrome/72.0.3626.119 Safari/537.36'
 }
 
-url = "https://almaty.hh.kz/search/vacancy?search_field=&area=160&salary=&currency_code=KZT&experience=doesNotMatter&order_by=relevance&search_period=&items_on_page=25&no_magic=true&specialization=1"
+url = "https://almaty.hh.kz/search/vacancy?clusters=true&enable_snippets=true&items_on_page=25&no_magic=true&showClusters=true"
 
 req = requests.get(url, headers=headers)
 html = req.content
@@ -51,9 +51,22 @@ def get_vacancy_id(vac):
     return str.split(string_id, "/", -1)[-1]
 
 
+def get_employer_logo_id(vac):
+    try:
+        employer_logo_id = vac.find('a', attrs={'data-qa': "vacancy-serp__vacancy-employer-logo"}).get('href')
+        return str.split(employer_logo_id, '/', 2)[-1]
+    except:
+        pass
+
+
 def get_vacancy_zp(vac):
     try:
         zp = vac.find('span', attrs={'data-qa': "vacancy-serp__vacancy-compensation"}).text
         return zp
     except:
         return
+
+
+def get_employer_id(vac):
+    employer_id = vac.find('a', attrs={'data-qa': "vacancy-serp__vacancy-employer"}).get('href')
+    return str.split(employer_id, '/', 2)[-1]
