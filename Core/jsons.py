@@ -7,7 +7,7 @@ from os.path import join
 def set_name_file(va_count, va_specialization, va_area):
     localtime = time.strftime("%d-%m-%Y_%H-%M-%S", time.localtime())
     name_of_file = localtime + '__' + str(va_count) + '_' + va_specialization + '_' + va_area + '.json'
-    path = os.getcwd() + "\\Output"
+    path = path_exist(name_of_file)
     return join(path, name_of_file)
 
 
@@ -18,6 +18,17 @@ def write_json_to_disk(data, va_count, va_specialization, va_area):
               encoding="utf-8") as f:
         f.write(json_f)
         f.close()
+
+
+def path_exist(name_of_file):
+
+    if os.path.exists(os.getcwd() + "\\Output"):
+        print("Saving in: " + os.getcwd() + "\\Output" + "\\" + name_of_file)
+        return os.getcwd() + "\\Output"
+    else:
+        os.mkdir("Output")
+        print("Creating and save in: " + os.getcwd() + "\\Output" + "\\" + name_of_file)
+        return os.getcwd() + "\\Output"
 
 
 def decode_spec_area(common_code):
