@@ -1,4 +1,4 @@
-'''
+"""
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                   'Chrome/72.0.3626.119 Safari/537.36'
@@ -11,7 +11,7 @@ html = req.content
 
 soup = BeautifulSoup(html, "html.parser")
 raw_vacancies = soup.findAll('div', attrs={'class': "vacancy-serp-item"})
-'''
+"""
 
 
 def get_date_of_post_vacancy(vac):
@@ -68,5 +68,9 @@ def get_vacancy_zp(vac):
 
 
 def get_employer_id(vac):
-    employer_id = vac.find('a', attrs={'data-qa': "vacancy-serp__vacancy-employer"}).get('href')
-    return str.split(employer_id, '/', 2)[-1]
+    try:
+        employer_id = vac.find('a', attrs={'data-qa': "vacancy-serp__vacancy-employer"}).get('href')
+        return str.split(employer_id, '/', 2)[-1]
+    except:
+        print('***NO_EMPLOYER_ID***')
+        return
